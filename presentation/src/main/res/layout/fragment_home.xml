@@ -59,7 +59,7 @@
                             android:id="@+id/userName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="서승훈"
+                            android:text="청년"
                             android:textSize="22sp"
                             android:textColor="@color/black"
                             android:fontFamily="@font/pretendard_semibold"
