@@ -1,4 +1,4 @@
-package kr.us.us_android
+package kr.us.us_android.feature.home
 
 import android.content.Context
 import android.content.Intent

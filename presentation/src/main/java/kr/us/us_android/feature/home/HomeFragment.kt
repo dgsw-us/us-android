@@ -1,4 +1,4 @@
-package kr.us.us_android
+package kr.us.us_android.feature.home
 
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
+import kr.us.us_android.R
 import kr.us.us_android.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

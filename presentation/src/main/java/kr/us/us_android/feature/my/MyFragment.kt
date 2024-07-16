@@ -1,21 +1,21 @@
-package kr.us.us_android
+package kr.us.us_android.feature.my
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kr.us.us_android.databinding.FragmentRiceRecommendBinding
+import kr.us.us_android.databinding.FragmentMyBinding
 
-class RiceRecommendFragment : Fragment() {
+class MyFragment : Fragment() {
 
-    private lateinit var binding: FragmentRiceRecommendBinding
+    private lateinit var binding: FragmentMyBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentRiceRecommendBinding.inflate(inflater, container, false)
+    ): View? {
+        binding = FragmentMyBinding.inflate(inflater, container, false)
 
         return binding.root
     }

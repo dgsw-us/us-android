@@ -1,21 +1,21 @@
-package kr.us.us_android
+package kr.us.us_android.feature.Community
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kr.us.us_android.databinding.FragmentCalendarBinding
+import kr.us.us_android.databinding.FragmentCommunityBinding
 
-class CalendarFragment : Fragment() {
+class CommunityFragment : Fragment() {
 
-    private lateinit var binding: FragmentCalendarBinding
+    private lateinit var binding: FragmentCommunityBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCalendarBinding.inflate(inflater, container, false)
+        binding = FragmentCommunityBinding.inflate(inflater, container, false)
 
         return binding.root
     }

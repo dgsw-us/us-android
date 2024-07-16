@@ -4,6 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kr.us.us_android.databinding.ActivityMainBinding
+import kr.us.us_android.feature.Community.CommunityFragment
+import kr.us.us_android.feature.calendar.CalendarFragment
+import kr.us.us_android.feature.home.HomeFragment
+import kr.us.us_android.feature.my.MyFragment
+import kr.us.us_android.feature.ricerecommend.RiceRecommendFragment
 
 class MainActivity : AppCompatActivity() {
 
