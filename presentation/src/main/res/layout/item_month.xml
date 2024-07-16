@@ -99,7 +99,7 @@
     <!-- 요일이 보여질 리사이클러뷰-->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="wrap_content"
         android:id="@+id/month_recycler"
         app:layout_constraintTop_toBottomOf="@id/month_layout">
     </androidx.recyclerview.widget.RecyclerView>
