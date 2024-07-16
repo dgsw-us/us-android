@@ -23,4 +23,8 @@
     <color name="blue3">#78AAFF</color>
     <color name="blue4">#649EFF</color>
     <color name="blue5">#4188FE</color>
+
+    <!--    indicator-->
+    <color name="indicator_inactive">@color/gray3</color>
+    <color name="indicator_active">@color/black</color>
 </resources>

@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         MyFragment()
     )
 
-    private var recentPosition = 0
+    private var recentPosition = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +33,10 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = binding.bottomNav
 
         supportFragmentManager.beginTransaction()
-            .replace(binding.mainFrameContainer.id, bottomNavFragments[0])
+            .replace(binding.mainFrameContainer.id, bottomNavFragments[2])
             .commit()
+
+        bottomNavigationView.selectedItemId = R.id.homeFragment
 
         bottomNavigationView.setOnItemSelectedListener {
             val transaction = supportFragmentManager.beginTransaction()
