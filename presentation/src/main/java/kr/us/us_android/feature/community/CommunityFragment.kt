@@ -1,4 +1,4 @@
-package kr.us.us_android.feature.Community
+package kr.us.us_android.feature.community
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

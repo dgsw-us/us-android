@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_calendar" />
     <fragment
         android:id="@+id/communityFragment"
-        android:name="kr.us.us_android.feature.Community.CommunityFragment"
+        android:name="kr.us.us_android.feature.community.CommunityFragment"
         android:label="fragment_community"
         tools:layout="@layout/fragment_community" />
     <fragment
