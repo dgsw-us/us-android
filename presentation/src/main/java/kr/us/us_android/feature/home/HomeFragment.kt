@@ -1,5 +1,6 @@
 package kr.us.us_android.feature.home
 
+import android.app.Notification
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,6 +14,8 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import kr.us.us_android.R
 import kr.us.us_android.databinding.FragmentHomeBinding
+import kr.us.us_android.feature.menu.MenuFragment
+import kr.us.us_android.feature.notification.NotificationFragment
 
 class HomeFragment : Fragment() {
 
@@ -42,6 +45,32 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding.notification.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.anim_slide_in_from_bottom,
+                    R.anim.anim_fade_out_150,
+                    R.anim.anim_fade_in_150,
+                    R.anim.anim_fade_out_150
+                )
+                .replace(R.id.main_frame_container, NotificationFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+        }
+
+        binding.menu.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.anim_slide_in_from_bottom,
+                    R.anim.anim_fade_out_150,
+                    R.anim.anim_fade_in_150,
+                    R.anim.anim_fade_out_150
+                )
+                .replace(R.id.main_frame_container, MenuFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+        }
 
         layoutIndicator = binding.root.findViewById(R.id.layoutIndicators)
 
