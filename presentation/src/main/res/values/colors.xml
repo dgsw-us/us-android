@@ -27,4 +27,6 @@
     <!--    indicator-->
     <color name="indicator_inactive">@color/gray3</color>
     <color name="indicator_active">@color/black</color>
+
+    <color name="red">#FF0000</color>
 </resources>
