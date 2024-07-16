@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.us.us_android.R
 import java.util.Date
 
-class DayAdapter(val tempMonth:Int, val dayList: MutableList<Date>) : RecyclerView.Adapter<DayAdapter.DayView>() {
-    val ROW =6
+class DayAdapter(private val tempMonth:Int, private val dayList: MutableList<Date>) : RecyclerView.Adapter<DayAdapter.DayView>() {
+    private val ROW = 6
     class DayView(val layout: View): RecyclerView.ViewHolder(layout)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DayView {
-        var view = LayoutInflater.from(parent.context).inflate(R.layout.item_day,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_day,parent,false)
 
         return DayView(view)
     }
@@ -22,20 +22,20 @@ class DayAdapter(val tempMonth:Int, val dayList: MutableList<Date>) : RecyclerVi
     override fun onBindViewHolder(holder: DayView, position: Int) {
 
         //초기화
-        var day_text: TextView = holder.layout.findViewById<TextView>(R.id.item_day_text)
+        val dayText: TextView = holder.layout.findViewById<TextView>(R.id.item_day_text)
 
 
         //날짜 표시
-        day_text.text = dayList[position].date.toString()
+        dayText.text = dayList[position].date.toString()
         if(tempMonth != dayList[position].month) {
-            day_text.alpha=0.4f
+            dayText.alpha=0.4f
         }
 
-        //토요일이면 파란색 || 일요일이면 빨간색으로 색상표시
+        // 토요일이면 파란색 || 일요일이면 빨간색으로 색상표시
         if((position + 1) % 7 == 0) {
-            day_text.setTextColor(ContextCompat.getColor(holder.layout.context,R.color.primaryColor))
+            dayText.setTextColor(ContextCompat.getColor(holder.layout.context,R.color.primaryColor))
         } else if (position == 0 || position % 7 == 0) {
-            day_text.setTextColor(ContextCompat.getColor(holder.layout.context,R.color.red))
+            dayText.setTextColor(ContextCompat.getColor(holder.layout.context,R.color.red))
         }
     }
 

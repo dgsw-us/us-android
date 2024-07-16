@@ -33,7 +33,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
     private fun initView(binding: FragmentCalendarBinding) {
         recyclerView = binding.calRecycler
-        var position: Int = Int.MAX_VALUE / 2
+        val position: Int = Int.MAX_VALUE / 2
 
         binding.calRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.calRecycler.adapter = MonthAdapter()
