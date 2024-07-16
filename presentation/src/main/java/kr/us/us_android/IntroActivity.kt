@@ -13,7 +13,7 @@ class IntroActivity : AppCompatActivity() {
 
         // Coroutine을 사용하여 지연 후 MainActivity로 전환
         CoroutineScope(Dispatchers.Main).launch {
-            delay(2000) // 2초 지연
+            delay(150) // 1.5초 지연
             startActivity(Intent(applicationContext, MainActivity::class.java))
             finish() // 현재 액티비티 종료
         }
