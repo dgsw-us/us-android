@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="kr.us.us_android.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="kr.us.us_android.CommunityFragment"
+        android:label="fragment_community"
+        tools:layout="@layout/fragment_community" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="kr.us.us_android.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/myFragment"
+        android:name="kr.us.us_android.MyFragment"
+        android:label="fragment_my"
+        tools:layout="@layout/fragment_my" />
+    <fragment
+        android:id="@+id/riceRecommendFragment"
+        android:name="kr.us.us_android.RiceRecommendFragment"
+        android:label="fragment_rice_recommend"
+        tools:layout="@layout/fragment_rice_recommend" />
+</navigation>
