@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -161,6 +162,10 @@ class HomeFragment : Fragment() {
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
         }
+
+        binding.recyclerView.setOnClickListener {
+            showDeleteConfirmationDialog()
+        }
     }
 
     private fun setupIndicators(count: Int) {
@@ -219,6 +224,27 @@ class HomeFragment : Fragment() {
                 e.message
             }
         }
+    }
+
+    private fun showDeleteConfirmationDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("삭제 확인")
+        builder.setMessage("정말 삭제하시겠습니까?")
+        builder.setPositiveButton("예") { dialog, which ->
+            // 사용자가 "예"를 선택한 경우
+            Log.d("Delete", "사용자가 삭제를 확인했습니다.")
+            //여기서 삭제작업수행
+        }
+        builder.setNegativeButton("아니요") { dialog, which ->
+            // 사용자가 "아니요"를 선택한 경우
+            Log.d("Delete", "사용자가 삭제를 취소했습니다.")
+            dialog.dismiss()
+        }
+        builder.setOnCancelListener {
+            // 다이얼로그가 취소된 경우
+            Log.d("Delete", "다이얼로그가 취소되었습니다.")
+        }
+        builder.show()
     }
 
     override fun onDestroyView() {
