@@ -23,7 +23,7 @@ object InfoRequestManager {
         .build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://us.baekjoon.kr/")
+        .baseUrl("http://192.168.206.97:8080/")
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

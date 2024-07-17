@@ -1,9 +1,10 @@
-package kr.us.us_android.data.user
+package kr.us.us_android.data.community
 
 import kr.us.us_android.data.auth.AuthRequestManager
-import kr.us.us_android.data.auth.request.LoginRequest
-import kr.us.us_android.data.auth.response.LoginResponse
-import kr.us.us_android.data.info.InfoService
+import kr.us.us_android.data.auth.AuthService
+import kr.us.us_android.data.info.InfoRequestManager
+import kr.us.us_android.data.info.request.AddInfoRequest
+import kr.us.us_android.data.info.response.AddInfoResponse
 import okhttp3.OkHttpClient
 import retrofit2.HttpException
 import retrofit2.Response
@@ -11,7 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object UserRequestManager {
+object BoardRequestManager {
 
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)  // 연결 타임아웃
@@ -25,10 +26,10 @@ object UserRequestManager {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val userService: UserService = retrofit.create(UserService::class.java)
+    private val boardService: BoardService = BoardRequestManager.retrofit.create(BoardService::class.java)
 
-    suspend fun showUserRequest(token: String): Response<ShowUserResponse> {
-        val response = userService.getUser(token)
+    suspend fun createBoardRequest(token: String, createBoardData: CreateBoardRequest): Response<AddInfoResponse> {
+        val response = boardService.createBoard(token, createBoardData)
         if (!response.isSuccessful)
             throw HttpException(response)
 
