@@ -8,20 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.us.us_android.R  // 필요한 경우 프로젝트의 R 파일로 변경
 import kr.us.us_android.data.info.response.Information
 import kr.us.us_android.data.routine.DataItem
+import kr.us.us_android.data.routine.Exercise
 
-class RoutineAdapter(
-    private val dataList: List<DataItem>,
-    private val itemClickListener: (DataItem) -> Unit
-) : RecyclerView.Adapter<RoutineAdapter.ViewHolder>() {
+class ExerciseRoutineAdapter(private val dataList: List<Exercise>) :
+    RecyclerView.Adapter<ExerciseRoutineAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_routine, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_exercise_routine, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = dataList[position]
-        holder.bind(item)
+
+        holder.exerciseRoutineId.text = item.id.toString()
+        holder.exerciseRoutineName.text = item.name
     }
 
     override fun getItemCount(): Int {
@@ -29,16 +30,7 @@ class RoutineAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val routineId: TextView = itemView.findViewById(R.id.routineId)
-        private val routineName: TextView = itemView.findViewById(R.id.routineTitle)
-
-        fun bind(item: DataItem) {
-            routineId.text = item.id.toString()
-            routineName.text = item.name
-
-            itemView.setOnClickListener {
-                itemClickListener.invoke(item)
-            }
-        }
+        val exerciseRoutineId: TextView = itemView.findViewById(R.id.exerciseRoutineId)
+        val exerciseRoutineName: TextView = itemView.findViewById(R.id.exerciseRoutineTitle)
     }
 }

@@ -21,17 +21,20 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kr.us.us_android.R
 import kr.us.us_android.application.UsApplication
+import kr.us.us_android.data.auth.AuthRequestManager
 import kr.us.us_android.data.info.InfoRequestManager
 import kr.us.us_android.data.info.response.Information
 import kr.us.us_android.data.routine.DataItem
+import kr.us.us_android.data.routine.DeleteRoutineRequest
 import kr.us.us_android.data.routine.RoutineRequestManager
+import kr.us.us_android.data.user.AddFoodRequest
 import kr.us.us_android.data.user.UserRequestManager
 import kr.us.us_android.databinding.FragmentHomeBinding
 import kr.us.us_android.feature.menu.MenuFragment
 import kr.us.us_android.feature.notification.NotificationFragment
 import kr.us.us_android.util.shortToast
-import retrofit2.Retrofit
-import java.io.Writer
+import retrofit2.HttpException
+import java.net.SocketTimeoutException
 import kotlin.coroutines.cancellation.CancellationException
 
 class HomeFragment : Fragment() {
@@ -133,7 +136,9 @@ class HomeFragment : Fragment() {
 
                 if (response.isSuccessful) {
                     val dataList = response.body()?.data ?: emptyList()
-                    routineAdapter = RoutineAdapter(dataList)
+                    routineAdapter = RoutineAdapter(dataList) { item ->
+                        onItemClick(item)
+                    }
                     routineRecyclerView.adapter = routineAdapter
                 } else {
                     context?.shortToast("네트워크 요청 실패: ${response.code()}")
@@ -152,11 +157,15 @@ class HomeFragment : Fragment() {
         informatinAdapter = InformationAdapter(informationDataList)
         recyclerView.adapter = informatinAdapter
 
-        routineAdapter = RoutineAdapter(routineDataList)
         recyclerView.adapter = informatinAdapter
 
         layoutIndicator = binding.layoutIndicators
         homeViewPager = binding.homeViewPager
+
+        routineAdapter = RoutineAdapter(routineDataList) { item ->
+            onItemClick(item)
+        }
+
         homeViewPager.adapter = HomeViewPagerAdapter(requireContext(), homeViewPagerData)
 
         homeViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -287,4 +296,36 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         handler.removeCallbacks(sliderRunnable)
     }
+
+    private fun onItemClick(item: DataItem) {
+        context?.shortToast("클릭된 아이템 ID: ${item.id}")
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val token = UsApplication.prefs.token
+                val id = item.id
+
+                // DELETE 요청 보내기
+                val response = RoutineRequestManager.deleteRoutineRequest("Bearer $token", id)
+
+                if (response.isSuccessful) {
+                    context?.shortToast("삭제 성공")
+                } else {
+                    context?.shortToast("네트워크 요청 실패: ${response.code()}")
+                    Log.d("HomeFragment", "네트워크 요청 실패: ${response.message()}")
+                }
+
+            } catch (e: HttpException) {
+                context?.shortToast("네트워크 요청 실패: ${e.code()}")
+                Log.e("HomeFragment", "HttpException: ${e.message()}")
+            } catch (e: SocketTimeoutException) {
+                context?.shortToast("네트워크 연결이 불안정합니다. 다시 시도해주세요.")
+                Log.e("HomeFragment", "SocketTimeoutException: ${e.message}")
+            } catch (e: Exception) {
+                context?.shortToast("알 수 없는 에러 발생")
+                Log.e("HomeFragment", "Error: ${e.message}")
+            }
+        }
+    }
+
 }

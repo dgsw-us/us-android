@@ -18,6 +18,7 @@ import kr.us.us_android.application.PreferenceManager
 import kr.us.us_android.application.UsApplication
 import kr.us.us_android.application.UserPrefs
 import kr.us.us_android.databinding.ActivityMainBinding
+import kr.us.us_android.feature.auth.login.LoginFragment
 import kr.us.us_android.feature.community.CommunityFragment
 import kr.us.us_android.feature.calendar.CalendarFragment
 import kr.us.us_android.feature.home.HomeFragment
@@ -46,6 +47,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (UsApplication.prefs.token==null) {
+            navigateToLogin()
+            return
+        }
 
         if (!UserPrefs.isInitialized) {
             Log.d("MainActivity", "UserPrefs not initialized, initializing now")
@@ -215,5 +221,11 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 1001
+    }
+
+    private fun navigateToLogin() {
+        supportFragmentManager.beginTransaction()
+            .replace(binding.mainFrameContainer.id, LoginFragment())
+            .commit()
     }
 }

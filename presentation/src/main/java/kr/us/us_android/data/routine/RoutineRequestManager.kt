@@ -1,11 +1,7 @@
 package kr.us.us_android.data.routine
 
-import kr.us.us_android.data.auth.AuthRequestManager
-import kr.us.us_android.data.auth.request.LoginRequest
-import kr.us.us_android.data.auth.response.LoginResponse
-import kr.us.us_android.data.info.InfoRequestManager
+import kr.us.us_android.data.auth.response.DeleteUserResponse
 import kr.us.us_android.data.info.response.AddInfoResponse
-import kr.us.us_android.data.info.response.InfoListResponse
 import retrofit2.HttpException
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -37,5 +33,13 @@ object RoutineRequestManager {
 
     suspend fun allRoutineRequest(token: String): Response<AllRoutineResponse> {
         return routineService.getInfoList(token)
+    }
+
+    suspend fun deleteRoutineRequest(token: String, routineId: Int): Response<DeleteUserResponse> {
+        val response = routineService.deleteRoutine("Bearer $token", routineId)
+        if (!response.isSuccessful) {
+            throw HttpException(response)
+        }
+        return response
     }
 }
