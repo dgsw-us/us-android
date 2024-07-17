@@ -4,6 +4,7 @@ import kr.us.us_android.data.auth.AuthRequestManager
 import kr.us.us_android.data.info.request.AddInfoRequest
 import kr.us.us_android.data.info.response.AddInfoResponse
 import kr.us.us_android.data.info.response.InfoListResponse
+import kr.us.us_android.data.user.AddFoodRequest
 import retrofit2.HttpException
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -24,6 +25,14 @@ object InfoRequestManager {
 
     suspend fun addInfoRequest(token: String, infoData: AddInfoRequest): Response<AddInfoResponse> {
         val response = infoService.addInfo(token, infoData)
+        if (!response.isSuccessful)
+            throw HttpException(response)
+
+        return response
+    }
+
+    suspend fun addFoodRequest(token: String, foodData: AddFoodRequest): Response<AddInfoResponse> {
+        val response = infoService.addFood(token, foodData)
         if (!response.isSuccessful)
             throw HttpException(response)
 

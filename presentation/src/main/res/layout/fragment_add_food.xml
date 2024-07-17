@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feature.home.AddInfoFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="음식 추가"
+                android:layout_marginStart="15dp"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/pretendard_bold"
+                android:layout_marginTop="50dp"/>
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="음식 이름을 입력하세요"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="15dp"/>
+
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="음식 설명을 입력하세요"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="15dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnContinue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="400dp"
+                android:text="계속하기"
+                android:textSize="16sp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textColor="@color/white"
+                style="?android:attr/borderlessButtonStyle"
+                android:background="@drawable/bac_button"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

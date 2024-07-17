@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import kr.us.us_android.R
 import kr.us.us_android.application.UsApplication
 import kr.us.us_android.data.recommend.RiceRequestManager
 import kr.us.us_android.databinding.FragmentRiceRecommendBinding
+import kr.us.us_android.feature.home.AddInfoFragment
 import kr.us.us_android.util.shortToast
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -33,6 +35,19 @@ class RiceRecommendFragment : Fragment() {
         // 서버에서 음식 추천 데이터 가져오기
         binding.btnFood.setOnClickListener {
             fetchFoodRecommendation()
+        }
+
+        binding.add.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.anim_slide_in_from_bottom,
+                    R.anim.anim_fade_out_150,
+                    R.anim.anim_fade_in_150,
+                    R.anim.anim_fade_out_150
+                )
+                .replace(R.id.main_frame_container, AddFoodFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
         }
     }
 

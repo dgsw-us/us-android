@@ -3,6 +3,7 @@ package kr.us.us_android.data.info
 import kr.us.us_android.data.info.request.AddInfoRequest
 import kr.us.us_android.data.info.response.AddInfoResponse
 import kr.us.us_android.data.info.response.InfoListResponse
+import kr.us.us_android.data.user.AddFoodRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,5 +20,11 @@ interface InfoService {
     suspend fun addInfo(
         @Header("Authorization") token: String,
         @Body addInfoRequest: AddInfoRequest
+    ): Response<AddInfoResponse>
+
+    @POST("/food")
+    suspend fun addFood(
+        @Header("Authorization") token: String,
+        @Body addFoodRequest: AddFoodRequest
     ): Response<AddInfoResponse>
 }

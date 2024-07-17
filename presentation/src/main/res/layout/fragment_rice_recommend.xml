@@ -54,13 +54,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="40dp"
             android:text="뽑기"
             android:textSize="16sp"
             android:fontFamily="@font/pretendard_semibold"
             android:textColor="@color/white"
             style="?android:attr/borderlessButtonStyle"
             android:background="@drawable/bac_button"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnFood"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="직접 추가하고 싶으시다면? "
+                android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="추가하기"
+                android:textSize="12sp"
+                android:textColor="@color/primaryColor"/>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
