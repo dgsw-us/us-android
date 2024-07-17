@@ -54,4 +54,10 @@ dependencies {
     // Glide
     implementation("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.9.0")
+
+    // Retrofit 라이브러리
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // Gson 변환기 라이브러리
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }
