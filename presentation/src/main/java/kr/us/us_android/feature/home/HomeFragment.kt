@@ -23,6 +23,8 @@ import kr.us.us_android.R
 import kr.us.us_android.application.UsApplication
 import kr.us.us_android.data.info.InfoRequestManager
 import kr.us.us_android.data.info.response.Information
+import kr.us.us_android.data.routine.DataItem
+import kr.us.us_android.data.routine.RoutineRequestManager
 import kr.us.us_android.data.user.UserRequestManager
 import kr.us.us_android.databinding.FragmentHomeBinding
 import kr.us.us_android.feature.menu.MenuFragment
@@ -38,8 +40,11 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewPager: ViewPager2
     private lateinit var layoutIndicator: LinearLayout
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: InformationAdapter
-    private var dataList: List<Information> = emptyList()
+    private lateinit var routineRecyclerView: RecyclerView
+    private lateinit var informatinAdapter: InformationAdapter
+    private lateinit var routineAdapter: RoutineAdapter
+    private var informationDataList: List<Information> = emptyList()
+    private var routineDataList: List<DataItem> = emptyList()
 
     private val homeViewPagerData = arrayOf(
         Pair("https://2030.go.kr/static/yth/img/ythRenew/img-visual2023-m0104.png", "https://2030.go.kr/main"),
@@ -86,7 +91,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = binding.recyclerView
+        routineRecyclerView = binding.routineRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        routineRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
@@ -100,8 +107,34 @@ class HomeFragment : Fragment() {
 
                 if (response.isSuccessful) {
                     val dataList = response.body()?.data ?: emptyList()
-                    adapter = InformationAdapter(dataList)
-                    recyclerView.adapter = adapter
+                    informatinAdapter = InformationAdapter(dataList)
+                    recyclerView.adapter = informatinAdapter
+                } else {
+                    context?.shortToast("네트워크 요청 실패: ${response.code()}")
+                }
+            } catch (e: CancellationException) {
+                // 코루틴 취소 예외 처리
+                Log.d("Coroutine", "Coroutine cancelled: ${e.message}")
+            } catch (e: Exception) {
+                context?.shortToast("네트워크 오류: ${e.message}")
+                Log.e("Coroutine", "Coroutine error: ${e.message}", e)
+            }
+        }
+
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val token = UsApplication.prefs.token
+                if (token.isEmpty()) {
+                    context?.shortToast("로그인 후 다시 시도해주세요.")
+                    return@launch
+                }
+
+                val response = RoutineRequestManager.allRoutineRequest("Bearer $token")
+
+                if (response.isSuccessful) {
+                    val dataList = response.body()?.data ?: emptyList()
+                    routineAdapter = RoutineAdapter(dataList)
+                    routineRecyclerView.adapter = routineAdapter
                 } else {
                     context?.shortToast("네트워크 요청 실패: ${response.code()}")
                 }
@@ -116,8 +149,11 @@ class HomeFragment : Fragment() {
 
 
         // 어댑터 설정
-        adapter = InformationAdapter(dataList)
-        recyclerView.adapter = adapter
+        informatinAdapter = InformationAdapter(informationDataList)
+        recyclerView.adapter = informatinAdapter
+
+        routineAdapter = RoutineAdapter(routineDataList)
+        recyclerView.adapter = informatinAdapter
 
         layoutIndicator = binding.layoutIndicators
         homeViewPager = binding.homeViewPager
