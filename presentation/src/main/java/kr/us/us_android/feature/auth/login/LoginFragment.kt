@@ -68,8 +68,8 @@ class LoginFragment : Fragment() {
                 val response = AuthRequestManager.loginRequest(loginRequest)
                 Log.d(TAG, "response.header : ${response.code()}")
 
-                val token = response.headers()[HeaderUtil.AuthorizationToken]
-                Log.d(TAG, "token is $token")
+                val token = response.body()!!.data.accessToken
+                Log.d(TAG, "token is ${token}")
                 context?.shortToast("로그인 성공")
                 val intent = Intent(activity, MainActivity::class.java)
                 requireActivity().startActivity(intent)

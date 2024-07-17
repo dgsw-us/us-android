@@ -25,7 +25,7 @@ interface AuthService {
         @Body joinRequest: JoinRequest
     ): Response<JoinResponse>
 
-    @PATCH("user/password")
+    @PATCH("/user/password")
     suspend fun changePassword(
         @Header("Authorization") token: String,
         @Body changePasswordRequest: ChangePasswordRequest

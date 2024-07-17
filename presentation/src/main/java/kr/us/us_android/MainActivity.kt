@@ -3,6 +3,8 @@ package kr.us.us_android
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kr.us.us_android.application.PreferenceManager
+import kr.us.us_android.application.UsApplication
 import kr.us.us_android.databinding.ActivityMainBinding
 import kr.us.us_android.feature.community.CommunityFragment
 import kr.us.us_android.feature.calendar.CalendarFragment
@@ -29,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        UsApplication.prefs = PreferenceManager(application)
 
         initView()
     }

@@ -14,6 +14,7 @@ class UsApplication : Application() {
             return instance
         }
     }
+
     override fun onCreate() {
         super.onCreate()
         instance = this
