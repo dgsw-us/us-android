@@ -16,6 +16,9 @@ object UserPrefs {
         sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
+    val isInitialized: Boolean
+        get() = this::sharedPreferences.isInitialized
+
     var userEmail: String?
         get() = sharedPreferences.getString(KEY_USER_EMAIL, null)
         set(value) {

@@ -1,5 +1,6 @@
 package kr.us.us_android.feature.auth.join
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,6 +34,7 @@ class JoinBirthFragment : Fragment() {
                 getSelectedDate()
             }
             joinViewModel.setBirthdate(dateOfBirth)
+            saveBirth(dateOfBirth)
 
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(
@@ -78,5 +80,13 @@ class JoinBirthFragment : Fragment() {
 
         val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return format.format(calendar.time)
+    }
+
+    private fun saveBirth(birth: String) {
+        val sharedPref = requireActivity().getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+        with (sharedPref.edit()) {
+            putString("birth", birth)
+            commit()
+        }
     }
 }

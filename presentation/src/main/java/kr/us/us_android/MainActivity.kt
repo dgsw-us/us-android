@@ -1,10 +1,12 @@
 package kr.us.us_android
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kr.us.us_android.application.PreferenceManager
 import kr.us.us_android.application.UsApplication
+import kr.us.us_android.application.UserPrefs
 import kr.us.us_android.databinding.ActivityMainBinding
 import kr.us.us_android.feature.community.CommunityFragment
 import kr.us.us_android.feature.calendar.CalendarFragment
@@ -32,7 +34,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        UsApplication.prefs = PreferenceManager(application)
+        if (!UserPrefs.isInitialized) {
+            Log.d("MainActivity", "UserPrefs not initialized, initializing now")
+            UserPrefs.init(applicationContext)
+        }
 
         initView()
     }

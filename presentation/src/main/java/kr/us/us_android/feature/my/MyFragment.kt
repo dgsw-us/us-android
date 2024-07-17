@@ -1,5 +1,6 @@
 package kr.us.us_android.feature.my
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -36,6 +37,10 @@ class MyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMyBinding.inflate(inflater, container, false)
+
+        if (!UserPrefs.isInitialized) {
+            UserPrefs.init(requireContext())
+        }
 
         userProfileInfo()
 
@@ -116,7 +121,7 @@ class MyFragment : Fragment() {
                 R.anim.anim_fade_in_150,
                 R.anim.anim_fade_out_150
             )
-            .replace(R.id.main_frame_container, HomeFragment())
+            .replace(R.id.main_frame_container, LoginFragment())
             .addToBackStack(null)
             .commitAllowingStateLoss()
     }
@@ -147,29 +152,16 @@ class MyFragment : Fragment() {
     }
 
     private fun userProfileInfo() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            val cachedUserName = UserPrefs.userName
-            val cachedUserEmail = UserPrefs.userEmail
-            val cachedUserId = UserPrefs.userId
-            val cachedUserBirthDate = UserPrefs.userBirthDate
+        val sharedPref = requireActivity().getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+        val email = sharedPref.getString("email", null)
+        val username = sharedPref.getString("name", null)
+        val id = sharedPref.getString("userId", null)
+        val birth = sharedPref.getString("birth", null)
 
-            if (cachedUserName != null && cachedUserEmail != null && cachedUserId != null && cachedUserBirthDate != null) {
-                binding.loginText.text = "$cachedUserName"
-                binding.name.text = "$cachedUserName"
-                binding.email.text = "$cachedUserEmail"
-                binding.id.text = "$cachedUserId"
-                binding.birthDate.text = "$cachedUserBirthDate"
-            } else {
-                binding.loginText.text = "여기를 눌러 로그인하세요"
-                binding.name.text = "..."
-                binding.email.text = "..."
-                binding.id.text = "..."
-                binding.birthDate.text = "..."
-            }
-        }
-    }
-
-    private fun resignRequest() {
-
+        binding.loginText.setText("${username}님, 환영합니다!")
+        binding.email.setText(email)
+        binding.email.setText(id)
+        binding.email.setText(username)
+        binding.email.setText(birth)
     }
 }

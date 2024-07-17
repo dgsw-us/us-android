@@ -70,7 +70,7 @@ class LoginFragment : Fragment() {
                 Log.d(TAG, "response.header : ${response.code()}")
 
                 if (response.isSuccessful) {
-                    val token = response.body()?.data?.accessToken ?: ""
+                    val token = response.body()?.data?.refreshToken ?: ""
                     if (token.isNotEmpty()) {
                         UsApplication.prefs.token = token
 

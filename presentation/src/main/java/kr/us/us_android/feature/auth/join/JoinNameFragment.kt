@@ -1,5 +1,6 @@
 package kr.us.us_android.feature.auth.join
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -45,12 +46,7 @@ class JoinNameFragment : Fragment() {
         if (name.isEmpty()) {
             context?.shortToast("이름이 비어있습니다")
         } else {
-            joinViewModel.username.observe(viewLifecycleOwner) {
-                binding.nameEditText.setText(
-                    it
-                )
-            }
-            joinViewModel.setUsername(binding.nameEditText.text.toString())
+            saveName(name)
             registerRequest()
         }
     }
@@ -102,6 +98,14 @@ class JoinNameFragment : Fragment() {
                 Log.e(Constant.TAG, "registerRequest is null")
                 context?.shortToast("회원가입 데이터를 가져오는 데 실패했습니다")
             }
+        }
+    }
+
+    private fun saveName(name: String) {
+        val sharedPref = requireActivity().getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+        with (sharedPref.edit()) {
+            putString("name", name)
+            commit()
         }
     }
 }
