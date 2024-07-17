@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.palette.ui.main.settings.ChangePasswordFragment
 import kr.us.us_android.R
 import kr.us.us_android.databinding.FragmentMenuBinding
+import kr.us.us_android.feature.routine.AddExerciseRoutineFragment
 import kr.us.us_android.feature.routine.AddRoutineFragment
 import kr.us.us_android.feature.routine.PickRoutineFragment
 
@@ -43,6 +43,19 @@ class MenuFragment : Fragment() {
                     R.anim.anim_fade_out_150
                 )
                 .replace(R.id.main_frame_container, PickRoutineFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+        }
+
+        binding.pickExerciseRoutine.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.anim_slide_in_from_bottom,
+                    R.anim.anim_fade_out_150,
+                    R.anim.anim_fade_in_150,
+                    R.anim.anim_fade_out_150
+                )
+                .replace(R.id.main_frame_container, AddExerciseRoutineFragment())
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
         }

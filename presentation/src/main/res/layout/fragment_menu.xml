@@ -73,13 +73,33 @@
                     android:src="@drawable/ic_chevron_right_gray"
                     android:layout_gravity="end"/>
             </LinearLayout>
-            <View
+            <LinearLayout
+                android:id="@+id/pickExerciseRoutine"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/bottom_line"
-                app:layout_constraintBottom_toTopOf="@id/bottom_nav"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingEnd="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="운동 루틴 추가"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_chevron_right_gray"
+                    android:layout_gravity="end"/>
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/pickRoutine"
                 android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.routine.AddRoutineFragment">
+    tools:context=".feature.routine.AddExerciseRoutineFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="루틴 추가하기"
+                android:text="운동 루틴 추가하기"
                 android:textColor="@color/black"
                 android:textSize="28sp"
                 android:fontFamily="@font/pretendard_bold"/>
@@ -35,19 +35,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="본인만의 루틴을 추가하세요!"
+                android:text="본인만의 운동 루틴을 추가하세요!"
                 android:textSize="14sp"
                 android:textColor="@color/toss_gray"
                 android:layout_marginTop="4dp"/>
 
             <EditText
-                android:id="@+id/routine"
+                android:id="@+id/exerciseRoutine"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/bac_auth"
                 android:fontFamily="@font/pretendard_medium"
-                android:hint="루틴"
+                android:hint="운동 루틴"
                 android:paddingStart="10dp"
                 android:text=""
                 android:textColorHighlight="@color/blue3" />
