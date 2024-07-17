@@ -7,7 +7,11 @@ class PreferenceManager(context: Context) {
     private val prefs: SharedPreferences =
         context.getSharedPreferences(US_APP, Context.MODE_PRIVATE)
 
-    var token: String by PreferenceDelegate(TOKEN, "")
+    var token: String
+        get() = prefs.getString(TOKEN, "") ?: ""
+        set(value) {
+            prefs.edit().putString(TOKEN, value).apply()
+        }
 
     fun clearToken() {
         token = ""

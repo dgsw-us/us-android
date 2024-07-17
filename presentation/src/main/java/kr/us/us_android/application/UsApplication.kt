@@ -18,5 +18,7 @@ class UsApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        prefs = PreferenceManager(getContext())
+        UserPrefs.init(this)
     }
 }

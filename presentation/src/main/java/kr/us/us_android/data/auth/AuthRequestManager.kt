@@ -35,7 +35,7 @@ object AuthRequestManager {
         return response
     }
 
-    suspend fun changePassword(token: String, beforePassword: String, afterPassword: String): Response<ChangePasswordResponse> {
+    suspend fun changePasswordRequest(token: String, beforePassword: String, afterPassword: String): Response<ChangePasswordResponse> {
         val request = ChangePasswordRequest(beforePassword, afterPassword)
         val response = authService.changePassword(token, request)
 

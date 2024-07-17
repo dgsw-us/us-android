@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import kr.us.us_android.MainActivity
 import kr.us.us_android.R
+import kr.us.us_android.application.UsApplication
 import kr.us.us_android.common.Constant.TAG
 import kr.us.us_android.common.HeaderUtil
 import kr.us.us_android.data.auth.AuthRequestManager
@@ -68,13 +69,24 @@ class LoginFragment : Fragment() {
                 val response = AuthRequestManager.loginRequest(loginRequest)
                 Log.d(TAG, "response.header : ${response.code()}")
 
-                val token = response.body()!!.data.accessToken
-                Log.d(TAG, "token is ${token}")
-                context?.shortToast("로그인 성공")
-                val intent = Intent(activity, MainActivity::class.java)
-                requireActivity().startActivity(intent)
-                activity?.finish()
+                if (response.isSuccessful) {
+                    val token = response.body()?.data?.accessToken ?: ""
+                    if (token.isNotEmpty()) {
+                        UsApplication.prefs.token = token
 
+                        // 로그인 성공 메시지 토스트로 표시
+                        context?.shortToast("로그인 성공")
+
+                        // MainActivity로 이동
+                        val intent = Intent(activity, MainActivity::class.java)
+                        requireActivity().startActivity(intent)
+                        activity?.finish()
+                    } else {
+                        context?.shortToast("토큰이 비어있습니다. 다시 시도해주세요.")
+                    }
+                } else {
+                    context?.shortToast("이메일과 비밀번호를 다시 확인해주세요")
+                }
             } catch (e: HttpException) {
                 Log.e("LoginFragment", "${e.code()}")
                 Log.e("LoginFragment", "${e.message}")

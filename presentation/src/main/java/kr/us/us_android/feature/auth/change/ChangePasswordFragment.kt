@@ -1,4 +1,4 @@
-package kr.us.us_android.feature.auth.change
+package com.example.palette.ui.main.settings
 
 import android.os.Bundle
 import android.util.Log
@@ -40,16 +40,16 @@ class ChangePasswordFragment : Fragment() {
                 context?.shortToast("이전 비밀번호와 변경할 비밀번호를 입력해주세요.")
                 return@setOnClickListener
             }
-
             changePassword(beforePassword, afterPassword)
         }
     }
 
     private fun changePassword(beforePassword: String, afterPassword: String) {
+        Log.d("ㅇㅇㅇ", UsApplication.prefs.token)
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val response = AuthRequestManager.changePassword(
-                    UsApplication.prefs.token,
+                val response = AuthRequestManager.changePasswordRequest(
+                    "Bearer ${UsApplication.prefs.token}",
                     beforePassword,
                     afterPassword
                 )

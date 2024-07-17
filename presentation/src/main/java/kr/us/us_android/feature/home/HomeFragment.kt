@@ -1,27 +1,42 @@
 package kr.us.us_android.feature.home
 
-import android.app.Notification
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kr.us.us_android.R
+import kr.us.us_android.application.UsApplication
+import kr.us.us_android.data.info.InfoRequestManager
+import kr.us.us_android.data.info.response.Information
 import kr.us.us_android.databinding.FragmentHomeBinding
 import kr.us.us_android.feature.menu.MenuFragment
 import kr.us.us_android.feature.notification.NotificationFragment
+import kr.us.us_android.util.shortToast
+import retrofit2.Retrofit
+import java.io.Writer
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeViewPager: ViewPager2
     private lateinit var layoutIndicator: LinearLayout
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: InformationAdapter
+    private var dataList: List<Information> = emptyList()
 
     private val homeViewPagerData = arrayOf(
         Pair("https://2030.go.kr/static/yth/img/ythRenew/img-visual2023-m0104.png", "https://2030.go.kr/main"),
@@ -45,6 +60,58 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        recyclerView = binding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val response = InfoRequestManager.infoListRequest("Bearer ${UsApplication.prefs.token}")
+
+                if (response.isSuccessful) {
+                    val dataList = response.body()?.data ?: emptyList()
+                    // RecyclerView에 데이터 설정
+                    adapter = InformationAdapter(dataList)
+                    recyclerView.adapter = adapter
+                } else {
+                    // 네트워크 요청 실패 처리
+                    context?.shortToast("네트워크 요청 실패: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                // 네트워크 오류 처리
+                context?.shortToast("네트워크 오류: ${e.message}")
+                Log.d("ㅇㅇㅇ", UsApplication.prefs.token)
+                e.printStackTrace()
+            }
+        }
+
+
+        // 어댑터 설정
+        adapter = InformationAdapter(dataList)
+        recyclerView.adapter = adapter
+
+        layoutIndicator = binding.layoutIndicators
+        homeViewPager = binding.homeViewPager
+        homeViewPager.adapter = HomeViewPagerAdapter(requireContext(), homeViewPagerData)
+
+        homeViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                // Ensure fragment is attached to context before calling setCurrentIndicator
+                if (isAdded) {
+                    setCurrentIndicator(position)
+                }
+            }
+        })
+
+        setupIndicators(homeViewPagerData.size)
+
+        handler.postDelayed(sliderRunnable, 5000)
 
         binding.notification.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
@@ -71,28 +138,6 @@ class HomeFragment : Fragment() {
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
         }
-
-        layoutIndicator = binding.root.findViewById(R.id.layoutIndicators)
-
-        homeViewPager = binding.homeViewPager
-
-        homeViewPager.adapter = HomeViewPagerAdapter(requireContext(), homeViewPagerData)
-
-        homeViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                // Ensure fragment is attached to context before calling setCurrentIndicator
-                if (isAdded) {
-                    setCurrentIndicator(position)
-                }
-            }
-        })
-
-        setupIndicators(homeViewPagerData.size)
-
-        handler.postDelayed(sliderRunnable, 5000)
-
-        return binding.root
     }
 
     private fun setupIndicators(count: Int) {

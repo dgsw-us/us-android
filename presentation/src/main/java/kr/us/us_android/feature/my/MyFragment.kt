@@ -1,17 +1,27 @@
 package kr.us.us_android.feature.my
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import com.example.palette.ui.main.settings.ChangePasswordFragment
+import kotlinx.coroutines.launch
 import kr.us.us_android.R
+import kr.us.us_android.application.PreferenceManager
+import kr.us.us_android.application.UsApplication
+import kr.us.us_android.application.UserPrefs
 import kr.us.us_android.databinding.FragmentMyBinding
-import kr.us.us_android.feature.auth.change.ChangePasswordFragment
 import kr.us.us_android.feature.auth.login.LoginFragment
+import kr.us.us_android.feature.home.HomeFragment
 import kr.us.us_android.feature.menu.MenuFragment
 import kr.us.us_android.feature.notification.NotificationFragment
 import kr.us.us_android.setting.SettingFragment
+import kr.us.us_android.util.shortToast
+import kotlin.math.log
 
 class MyFragment : Fragment() {
 
@@ -75,6 +85,29 @@ class MyFragment : Fragment() {
                 .commitAllowingStateLoss()
         }
 
+        binding.logout.setOnClickListener {
+            logout()
+        }
+
         return binding.root
+    }
+
+    private fun logout() {
+
+        UsApplication.prefs = PreferenceManager(requireContext().applicationContext)
+        UsApplication.prefs.clearToken()
+        UserPrefs.clearUserData()
+        context?.shortToast("로그아웃 성공")
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.anim_slide_in_from_bottom,
+                R.anim.anim_fade_out_150,
+                R.anim.anim_fade_in_150,
+                R.anim.anim_fade_out_150
+            )
+            .replace(R.id.main_frame_container, HomeFragment())
+            .addToBackStack(null)
+            .commitAllowingStateLoss()
     }
 }
