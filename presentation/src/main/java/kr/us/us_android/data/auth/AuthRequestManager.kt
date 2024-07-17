@@ -4,8 +4,11 @@ import kr.us.us_android.data.auth.request.ChangePasswordRequest
 import kr.us.us_android.data.auth.request.JoinRequest
 import kr.us.us_android.data.auth.request.LoginRequest
 import kr.us.us_android.data.auth.response.ChangePasswordResponse
+import kr.us.us_android.data.auth.response.DeleteUserResponse
+import kr.us.us_android.data.auth.response.FoodResponse
 import kr.us.us_android.data.auth.response.JoinResponse
 import kr.us.us_android.data.auth.response.LoginResponse
+import kr.us.us_android.data.recommend.RiceRequestManager
 import retrofit2.HttpException
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -43,5 +46,9 @@ object AuthRequestManager {
             throw HttpException(response)
 
         return response
+    }
+
+    suspend fun resignRequest(token: String): Response<DeleteUserResponse> {
+        return authService.deleteUser(token)
     }
 }
