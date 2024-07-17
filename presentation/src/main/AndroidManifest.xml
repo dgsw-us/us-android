@@ -6,14 +6,18 @@
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:name=".application.UsApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_black"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo_black"
         android:supportsRtl="true"
         android:theme="@style/Theme.Usandroid"
         tools:targetApi="31"
@@ -28,6 +32,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
+
+        <receiver android:name=".AlarmReceiver"
+            android:exported="true"
+            tools:ignore="WrongManifestParent">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="your.custom.action.ALARM_TRIGGERED" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

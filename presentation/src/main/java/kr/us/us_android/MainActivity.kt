@@ -1,8 +1,18 @@
 package kr.us.us_android
 
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.pm.PackageManager
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kr.us.us_android.application.PreferenceManager
 import kr.us.us_android.application.UsApplication
@@ -29,6 +39,9 @@ class MainActivity : AppCompatActivity() {
 
     private var recentPosition = 2
 
+    private val CHANNEL_ID = "default_channel_id"
+    private val NOTIFICATION_ID = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -37,6 +50,15 @@ class MainActivity : AppCompatActivity() {
         if (!UserPrefs.isInitialized) {
             Log.d("MainActivity", "UserPrefs not initialized, initializing now")
             UserPrefs.init(applicationContext)
+        }
+
+        AlarmReceiver.setExactAlarm(this)
+
+        if (!hasNotificationPermission()) {
+            requestNotificationPermission()
+        } else {
+            createNotificationChannel()
+            sendNotification()
         }
 
         initView()
@@ -129,5 +151,69 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnItemSelectedListener false
         }
+    }
+
+    private fun hasNotificationPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.VIBRATE) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FULL_SCREEN_INTENT) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestNotificationPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.VIBRATE,
+                Manifest.permission.USE_FULL_SCREEN_INTENT
+            ),
+            PERMISSION_REQUEST_CODE
+        )
+    }
+
+    private fun createNotificationChannel() {
+        // Android 8.0 (API 레벨 26) 이상에서는 NotificationChannel을 설정해야 합니다.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Default Channel"
+            val descriptionText = "기본 알림 채널"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+                enableLights(true)
+                lightColor = Color.RED
+            }
+            // 시스템에 채널을 등록합니다.
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun sendNotification() {
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle("앱 시작 알림")
+            .setContentText("환영합니다! 앱을 시작하였습니다.")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        // 알림을 표시합니다.
+        with(NotificationManagerCompat.from(this)) {
+            if (ActivityCompat.checkSelfPermission(
+                    this@MainActivity,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return
+            }
+            notify(NOTIFICATION_ID, builder.build())
+        }
+    }
+
+    companion object {
+        private const val PERMISSION_REQUEST_CODE = 1001
     }
 }
