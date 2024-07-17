@@ -18,7 +18,7 @@ import java.util.regex.Pattern
 class JoinEmailFragment : Fragment() {
 
     private lateinit var binding: FragmentJoinEmailBinding
-    private val registerViewModel: JoinViewModel by activityViewModels()
+    private val joinViewModel: JoinViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +43,12 @@ class JoinEmailFragment : Fragment() {
             Log.d("isEmailValid", "${emailRegularExpression(email)}")
 
             if (isEmailValid) {
-                registerViewModel.setEmail(email)
+                joinViewModel.password.observe(viewLifecycleOwner) {
+                    binding.emailEditText.setText(
+                        it
+                    )
+                }
+                joinViewModel.setEmail(email)
                 saveEmail(email)
 
                 requireActivity().supportFragmentManager.beginTransaction()

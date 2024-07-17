@@ -58,8 +58,8 @@ class LoginFragment : Fragment() {
 
 
     private fun loginRequest() {
-        id = binding.loginIdEdit.text.toString()
-        pw = binding.loginPasswordEdit.text.toString()
+        id = binding.loginIdEdit.text.toString().trim()
+        pw = binding.loginPasswordEdit.text.toString().trim()
 
         val loginRequest = LoginRequest(id, pw)
 
@@ -77,6 +77,7 @@ class LoginFragment : Fragment() {
 
             } catch (e: HttpException) {
                 Log.e("LoginFragment", "${e.code()}")
+                Log.e("LoginFragment", "${e.message}")
                 context?.shortToast("이메일과 비밀번호를 다시 확인해주세요")
             } catch (e: SocketTimeoutException) {
                 context?.shortToast("네트워크 연결이 불안정합니다. 다시 시도해주세요.")
