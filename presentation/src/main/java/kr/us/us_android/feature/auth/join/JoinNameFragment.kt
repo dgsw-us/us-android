@@ -18,6 +18,7 @@ import kr.us.us_android.common.HeaderUtil
 import kr.us.us_android.data.auth.AuthRequestManager
 import kr.us.us_android.data.auth.request.JoinRequest
 import kr.us.us_android.databinding.FragmentJoinNameBinding
+import kr.us.us_android.feature.auth.login.LoginFragment
 import kr.us.us_android.util.shortToast
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -84,6 +85,17 @@ class JoinNameFragment : Fragment() {
                         Log.d(Constant.TAG, "token is $token")
 
                         context?.shortToast("회원가입 성공")
+
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .setCustomAnimations(
+                                R.anim.anim_slide_in_from_bottom,
+                                R.anim.anim_fade_out_150,
+                                R.anim.anim_fade_in_150,
+                                R.anim.anim_fade_out_150
+                            )
+                            .replace(R.id.main_frame_container, LoginFragment())
+                            .addToBackStack(null)
+                            .commitAllowingStateLoss()
 
 
                     } catch (e: SocketTimeoutException) {

@@ -1,8 +1,12 @@
 package kr.us.us_android.data.community
 
-import java.time.LocalDateTime
+data class BoardDetailResponse(
+    val code: String,
+    val message: String,
+    val data: BoardInformation
+)
 
-data class BoardResponse(
+data class BoardDetailListResponse (
     val code: String,
     val message: String,
     val data: List<BoardInformation>

@@ -37,7 +37,15 @@ object BoardRequestManager {
         return response
     }
 
-    suspend fun boardListRequest(token: String): Response<BoardResponse> {
+    suspend fun boardListRequest(token: String): Response<BoardDetailListResponse> {
         return BoardRequestManager.boardService.getInfoList(token)
+    }
+
+    suspend fun getBoardRequest(token: String, boardId: Int): Response<BoardDetailResponse> {
+        val response = boardService.getBoard(token, boardId)
+        if (!response.isSuccessful) {
+            throw HttpException(response)
+        }
+        return response
     }
 }
