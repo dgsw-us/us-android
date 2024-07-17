@@ -5,6 +5,7 @@ import kr.us.us_android.data.auth.AuthService
 import kr.us.us_android.data.info.InfoRequestManager
 import kr.us.us_android.data.info.request.AddInfoRequest
 import kr.us.us_android.data.info.response.AddInfoResponse
+import kr.us.us_android.data.info.response.InfoListResponse
 import okhttp3.OkHttpClient
 import retrofit2.HttpException
 import retrofit2.Response
@@ -34,5 +35,9 @@ object BoardRequestManager {
             throw HttpException(response)
 
         return response
+    }
+
+    suspend fun boardListRequest(token: String): Response<BoardResponse> {
+        return BoardRequestManager.boardService.getInfoList(token)
     }
 }

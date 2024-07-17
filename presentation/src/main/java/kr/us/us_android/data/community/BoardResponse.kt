@@ -5,24 +5,24 @@ import java.time.LocalDateTime
 data class BoardResponse(
     val code: String,
     val message: String,
-    val data: List<Information>
+    val data: List<BoardInformation>
 )
 
-data class Information(
+data class BoardInformation(
     val id: Int,
     val title: String,
     val description: String,
     val writer: Writer,
     val category: String,
     val comments: List<Comment>,
-    val regDate: LocalDateTime,
-    val modDate: LocalDateTime
+    val regDate: String,
+    val modDate: String
 )
 
 data class Writer(
     val id: Int,
     val username: String,
-    val birthDate: LocalDateTime,
+    val birthDate: String,
     val userId: String,
     val email: String
 )
@@ -31,6 +31,6 @@ data class Comment(
     val id: Int,
     val content: String,
     val writer: Writer,
-    val regDate: LocalDateTime,
-    val modDate: LocalDateTime
+    val regDate: String,
+    val modDate: String
 )

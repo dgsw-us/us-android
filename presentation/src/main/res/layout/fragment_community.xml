@@ -71,9 +71,10 @@
             </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginTop="20dp"
-                android:id="@+id/routineRecyclerView"
+                android:id="@+id/exRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 tools:listitem="@layout/item_community"
                 android:clipToPadding="false"
                 android:clipChildren="false"
