@@ -28,6 +28,7 @@ import kr.us.us_android.feature.notification.NotificationFragment
 import kr.us.us_android.util.shortToast
 import retrofit2.Retrofit
 import java.io.Writer
+import kotlin.coroutines.cancellation.CancellationException
 
 class HomeFragment : Fragment() {
 
@@ -69,24 +70,29 @@ class HomeFragment : Fragment() {
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewLifecycleOwner.lifecycleScope.launch {
+        GlobalScope.launch(Dispatchers.Main) {
             try {
-                val response = InfoRequestManager.infoListRequest("Bearer ${UsApplication.prefs.token}")
+                val token = UsApplication.prefs.token
+                if (token.isEmpty()) {
+                    context?.shortToast("로그인 후 다시 시도해주세요.")
+                    return@launch
+                }
+
+                val response = InfoRequestManager.infoListRequest("Bearer $token")
 
                 if (response.isSuccessful) {
                     val dataList = response.body()?.data ?: emptyList()
-                    // RecyclerView에 데이터 설정
                     adapter = InformationAdapter(dataList)
                     recyclerView.adapter = adapter
                 } else {
-                    // 네트워크 요청 실패 처리
                     context?.shortToast("네트워크 요청 실패: ${response.code()}")
                 }
+            } catch (e: CancellationException) {
+                // 코루틴 취소 예외 처리
+                Log.d("Coroutine", "Coroutine cancelled: ${e.message}")
             } catch (e: Exception) {
-                // 네트워크 오류 처리
                 context?.shortToast("네트워크 오류: ${e.message}")
-                Log.d("ㅇㅇㅇ", UsApplication.prefs.token)
-                e.printStackTrace()
+                Log.e("Coroutine", "Coroutine error: ${e.message}", e)
             }
         }
 

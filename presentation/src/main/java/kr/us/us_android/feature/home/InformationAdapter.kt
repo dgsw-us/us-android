@@ -24,7 +24,6 @@ class InformationAdapter(private val dataList: List<Information>) :
         holder.textWriter.text = item.writer.username
         holder.textCategory.text = item.category
         holder.textRegDate.text = item.regDate
-        holder.textModDate.text = item.modDate
     }
 
     override fun getItemCount(): Int {
@@ -37,6 +36,5 @@ class InformationAdapter(private val dataList: List<Information>) :
         val textWriter: TextView = itemView.findViewById(R.id.textWriter)
         val textCategory: TextView = itemView.findViewById(R.id.textCategory)
         val textRegDate: TextView = itemView.findViewById(R.id.textRegDate)
-        val textModDate: TextView = itemView.findViewById(R.id.textModDate)
     }
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".feature.ricerecommend.RiceRecommendFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +24,43 @@
                 android:fontFamily="@font/pretendard_semibold"
                 android:layout_marginTop="50dp"/>
 
+            <TextView
+                android:id="@+id/random"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="음식 랜덤 추천"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textSize="30sp"
+                android:layout_marginTop="200dp"/>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="음식 랜덤 추천 설명"
+                android:layout_gravity="center"
+                android:textSize="20sp"/>
+
         </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnFood"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="30dp"
+            android:text="뽑기"
+            android:textSize="16sp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textColor="@color/white"
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/bac_button"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

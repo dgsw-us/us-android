@@ -7,21 +7,21 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/textDescription"
+        android:id="@+id/textWriter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:layout_marginTop="8dp"/>
 
     <TextView
-        android:id="@+id/textWriter"
+        android:id="@+id/textTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:fontFamily="@font/pretendard_semibold"/>
+
+    <TextView
+        android:id="@+id/textDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="14sp"
@@ -41,10 +41,10 @@
         android:textSize="14sp"
         android:layout_marginTop="8dp"/>
 
-    <TextView
-        android:id="@+id/textModDate"
+    <View
+        android:id="@+id/dividing_line"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginTop="8dp"/>
+        android:layout_height="1dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bottom_line"/>
 </LinearLayout>
