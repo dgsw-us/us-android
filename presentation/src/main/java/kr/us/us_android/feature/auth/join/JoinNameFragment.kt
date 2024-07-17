@@ -46,7 +46,12 @@ class JoinNameFragment : Fragment() {
         if (name.isEmpty()) {
             context?.shortToast("이름이 비어있습니다")
         } else {
-            saveName(name)
+            joinViewModel.username.observe(viewLifecycleOwner) {
+                binding.nameEditText.setText(
+                    it
+                )
+            }
+            joinViewModel.setUsername(binding.nameEditText.text.toString())
             registerRequest()
         }
     }

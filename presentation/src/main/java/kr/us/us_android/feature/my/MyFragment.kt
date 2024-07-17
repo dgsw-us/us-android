@@ -17,6 +17,7 @@ import kr.us.us_android.application.UsApplication
 import kr.us.us_android.application.UserPrefs
 import kr.us.us_android.data.auth.AuthRequestManager
 import kr.us.us_android.data.recommend.RiceRequestManager
+import kr.us.us_android.data.user.UserRequestManager
 import kr.us.us_android.databinding.FragmentMyBinding
 import kr.us.us_android.feature.auth.login.LoginFragment
 import kr.us.us_android.feature.home.HomeFragment
@@ -24,6 +25,7 @@ import kr.us.us_android.feature.menu.MenuFragment
 import kr.us.us_android.feature.notification.NotificationFragment
 import kr.us.us_android.setting.SettingFragment
 import kr.us.us_android.util.shortToast
+import org.json.JSONObject
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import kotlin.math.log
@@ -38,11 +40,11 @@ class MyFragment : Fragment() {
     ): View {
         binding = FragmentMyBinding.inflate(inflater, container, false)
 
+        loadProfileInfo()
+
         if (!UserPrefs.isInitialized) {
             UserPrefs.init(requireContext())
         }
-
-        userProfileInfo()
 
         binding.notification.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
@@ -151,17 +153,28 @@ class MyFragment : Fragment() {
         }
     }
 
-    private fun userProfileInfo() {
-        val sharedPref = requireActivity().getSharedPreferences("MyApp", Context.MODE_PRIVATE)
-        val email = sharedPref.getString("email", null)
-        val username = sharedPref.getString("name", null)
-        val id = sharedPref.getString("userId", null)
-        val birth = sharedPref.getString("birth", null)
+    private fun loadProfileInfo() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val token = UsApplication.prefs.token
+                // 서버에서 음식 추천 데이터를 가져오는 비동기 요청
+                val response = UserRequestManager.showUserRequest("Bearer $token")
 
-        binding.loginText.setText("${username}님, 환영합니다!")
-        binding.email.setText(email)
-        binding.email.setText(id)
-        binding.email.setText(username)
-        binding.email.setText(birth)
+                if (response.isSuccessful) {
+                    val username = response.body()?.data?.username
+                    val email = response.body()?.data?.email
+                    val userId = response.body()?.data?.userId
+                    val birthDate = response.body()?.data?.birthDate
+
+                    binding.loginText.text = "${username}님, 환영합니다!"
+                    binding.email.text = email
+                    binding.id.text = userId
+                    binding.name.text = username
+                    binding.birthDate.text = birthDate
+                }
+            } catch (e: Exception) {
+                e.message
+            }
+        }
     }
 }

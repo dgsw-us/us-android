@@ -22,6 +22,7 @@ import kr.us.us_android.R
 import kr.us.us_android.application.UsApplication
 import kr.us.us_android.data.info.InfoRequestManager
 import kr.us.us_android.data.info.response.Information
+import kr.us.us_android.data.user.UserRequestManager
 import kr.us.us_android.databinding.FragmentHomeBinding
 import kr.us.us_android.feature.menu.MenuFragment
 import kr.us.us_android.feature.notification.NotificationFragment
@@ -61,6 +62,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        loadNameInfo()
 
         binding.add.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
@@ -193,6 +196,27 @@ class HomeFragment : Fragment() {
                 val colorRes = if (i == selectedPosition) R.color.indicator_active else R.color.indicator_inactive
                 val color = ContextCompat.getColor(requireContext(), colorRes)
                 indicatorView.setColorFilter(color)
+            }
+        }
+    }
+
+    private fun loadNameInfo() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val token = UsApplication.prefs.token
+                // 서버에서 음식 추천 데이터를 가져오는 비동기 요청
+                val response = UserRequestManager.showUserRequest("Bearer $token")
+
+                if (response.isSuccessful) {
+                    val username = response.body()?.data?.username
+                    val email = response.body()?.data?.email
+                    val userId = response.body()?.data?.userId
+                    val birthDate = response.body()?.data?.birthDate
+
+                    binding.userName.text = username
+                }
+            } catch (e: Exception) {
+                e.message
             }
         }
     }
