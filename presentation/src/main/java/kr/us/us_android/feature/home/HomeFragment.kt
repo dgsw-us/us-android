@@ -61,6 +61,20 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding.add.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.anim_slide_in_from_bottom,
+                    R.anim.anim_fade_out_150,
+                    R.anim.anim_fade_in_150,
+                    R.anim.anim_fade_out_150
+                )
+                .replace(R.id.main_frame_container, AddInfoFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+        }
+
         return binding.root
     }
 
