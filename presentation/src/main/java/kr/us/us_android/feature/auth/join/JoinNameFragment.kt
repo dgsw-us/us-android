@@ -85,13 +85,14 @@ class JoinNameFragment : Fragment() {
 
                         context?.shortToast("회원가입 성공")
 
+
                     } catch (e: SocketTimeoutException) {
                         Log.e(Constant.TAG, "Network timeout", e)
                         context?.shortToast("네트워크 연결 시간 초과")
 
                     } catch (e: HttpException) {
                         Log.e(Constant.TAG, "HTTP error: ${e.code()}", e)
-                        Log.e(Constant.TAG, "HTTP error: ${e.response()?.raw()?.request()}", e)
+                        Log.e(Constant.TAG, "HTTP error: ${e.response()?.raw()?.request}", e)
                         context?.shortToast("http 문제 발생")
 
                     } catch (e: Exception) {

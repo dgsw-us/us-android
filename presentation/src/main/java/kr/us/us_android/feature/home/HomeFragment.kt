@@ -110,7 +110,9 @@ class HomeFragment : Fragment() {
 
                 if (response.isSuccessful) {
                     val dataList = response.body()?.data ?: emptyList()
-                    informatinAdapter = InformationAdapter(dataList)
+                    informatinAdapter = InformationAdapter(dataList) { item ->
+                        onItemClick(item)
+                    }
                     recyclerView.adapter = informatinAdapter
                 } else {
                     context?.shortToast("네트워크 요청 실패: ${response.code()}")
@@ -137,7 +139,7 @@ class HomeFragment : Fragment() {
                 if (response.isSuccessful) {
                     val dataList = response.body()?.data ?: emptyList()
                     routineAdapter = RoutineAdapter(dataList) { item ->
-                        onItemClick(item)
+                        routineOnItemClick(item)
                     }
                     routineRecyclerView.adapter = routineAdapter
                 } else {
@@ -154,7 +156,10 @@ class HomeFragment : Fragment() {
 
 
         // 어댑터 설정
-        informatinAdapter = InformationAdapter(informationDataList)
+        informatinAdapter = InformationAdapter(informationDataList) { item ->
+            onItemClick(item)
+        }
+
         recyclerView.adapter = informatinAdapter
 
         recyclerView.adapter = informatinAdapter
@@ -163,7 +168,7 @@ class HomeFragment : Fragment() {
         homeViewPager = binding.homeViewPager
 
         routineAdapter = RoutineAdapter(routineDataList) { item ->
-            onItemClick(item)
+            routineOnItemClick(item)
         }
 
         homeViewPager.adapter = HomeViewPagerAdapter(requireContext(), homeViewPagerData)
@@ -297,7 +302,7 @@ class HomeFragment : Fragment() {
         handler.removeCallbacks(sliderRunnable)
     }
 
-    private fun onItemClick(item: DataItem) {
+    private fun routineOnItemClick(item: DataItem) {
         context?.shortToast("클릭된 아이템 ID: ${item.id}")
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -328,4 +333,34 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun onItemClick(item: Information) {
+        context?.shortToast("클릭된 아이템 ID: ${item.informationId}")
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val token = UsApplication.prefs.token
+                val id = item.informationId
+
+                // DELETE 요청 보내기
+                val response = InfoRequestManager.deleteInfoRequest("Bearer $token", id)
+
+                if (response.isSuccessful) {
+                    context?.shortToast("삭제 성공")
+                } else {
+                    context?.shortToast("네트워크 요청 실패: ${response.code()}")
+                    Log.d("HomeFragment", "네트워크 요청 실패: ${response.message()}")
+                }
+
+            } catch (e: HttpException) {
+                context?.shortToast("네트워크 요청 실패: ${e.code()}")
+                Log.e("HomeFragment", "HttpException: ${e.message()}")
+            } catch (e: SocketTimeoutException) {
+                context?.shortToast("네트워크 연결이 불안정합니다. 다시 시도해주세요.")
+                Log.e("HomeFragment", "SocketTimeoutException: ${e.message}")
+            } catch (e: Exception) {
+                context?.shortToast("알 수 없는 에러 발생")
+                Log.e("HomeFragment", "Error: ${e.message}")
+            }
+        }
+    }
 }

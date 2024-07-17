@@ -95,7 +95,7 @@ class LoginFragment : Fragment() {
                 context?.shortToast("네트워크 연결이 불안정합니다. 다시 시도해주세요.")
             } catch (e: Exception) {
                 // HTTP 오류가 아닌 다른 예외가 발생한 경우에 대한 처리
-                Log.e("LoginFragment", "${e.message}")
+                Log.e("LoginFragment", e.stackTraceToString())
                 context?.shortToast("알 수 없는 에러")
             }
         }
