@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import kr.us.us_android.MainActivity
+import kr.us.us_android.R
 import kr.us.us_android.application.UsApplication
 import kr.us.us_android.common.Constant
 import kr.us.us_android.data.info.InfoRequestManager
@@ -27,6 +29,8 @@ class AddInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddInfoBinding.inflate(inflater, container, false)
+
+        (activity as MainActivity).findViewById<View>(R.id.bottom_nav).visibility = View.GONE
 
         binding.btnContinue.setOnClickListener {
             addInfoRequest()
@@ -55,5 +59,10 @@ class AddInfoFragment : Fragment() {
                 Log.d("ㅇㅇㅇ", e.stackTraceToString())
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (activity as MainActivity).findViewById<View>(R.id.bottom_nav).visibility = View.VISIBLE
     }
 }
