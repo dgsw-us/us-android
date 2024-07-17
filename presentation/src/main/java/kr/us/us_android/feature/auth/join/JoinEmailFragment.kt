@@ -79,7 +79,7 @@ class JoinEmailFragment : Fragment() {
         val sharedPref = requireActivity().getSharedPreferences("MyApp", Context.MODE_PRIVATE)
         with (sharedPref.edit()) {
             putString("email", email)
-            apply()
+            commit()
         }
     }
 }

@@ -47,9 +47,9 @@ class JoinViewModel : ViewModel() {
         val password = _password.value ?: ""
         val birthDate = _birthdate.value ?: ""
         val username = _username.value ?: ""
-        val userId = _id.value ?: ""
+        val id = _id.value ?: ""
 
-        userData.value = JoinRequest(username, birthDate, userId, email, password)
+        userData.value = JoinRequest(username, birthDate, id, email, password)
         return userData
     }
 }

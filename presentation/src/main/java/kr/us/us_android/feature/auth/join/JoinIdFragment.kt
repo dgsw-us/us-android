@@ -56,7 +56,7 @@ class JoinIdFragment : Fragment() {
         val sharedPref = requireActivity().getSharedPreferences("MyApp", Context.MODE_PRIVATE)
         with (sharedPref.edit()) {
             putString("userId", id)
-            apply()
+            commit()
         }
     }
 }

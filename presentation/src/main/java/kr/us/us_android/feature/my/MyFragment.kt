@@ -33,6 +33,8 @@ class MyFragment : Fragment() {
     ): View {
         binding = FragmentMyBinding.inflate(inflater, container, false)
 
+        userProfileInfo()
+
         binding.notification.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(
@@ -109,5 +111,28 @@ class MyFragment : Fragment() {
             .replace(R.id.main_frame_container, HomeFragment())
             .addToBackStack(null)
             .commitAllowingStateLoss()
+    }
+
+    private fun userProfileInfo() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val cachedUserName = UserPrefs.userName
+            val cachedUserEmail = UserPrefs.userEmail
+            val cachedUserId = UserPrefs.userId
+            val cachedUserBirthDate = UserPrefs.userBirthDate
+
+            if (cachedUserName != null && cachedUserEmail != null && cachedUserId != null && cachedUserBirthDate != null) {
+                binding.loginText.text = "$cachedUserName"
+                binding.name.text = "$cachedUserName"
+                binding.email.text = "$cachedUserEmail"
+                binding.id.text = "$cachedUserId"
+                binding.birthDate.text = "$cachedUserBirthDate"
+            } else {
+                binding.loginText.text = "여기를 눌러 로그인하세요"
+                binding.name.text = "..."
+                binding.email.text = "..."
+                binding.id.text = "..."
+                binding.birthDate.text = "..."
+            }
+        }
     }
 }

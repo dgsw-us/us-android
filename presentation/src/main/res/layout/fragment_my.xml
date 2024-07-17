@@ -62,7 +62,7 @@
                         android:id="@+id/loginText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="여기를 눌러 로그인하세요."
+                        android:text="여기를 눌러 로그인하세요"
                         android:textSize="20sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/pretendard_semibold"
@@ -86,9 +86,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"/>
                 <TextView
+                    android:id="@+id/email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="seoseunghun3@gmail.com"
+                    android:text="..."
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:layout_marginTop="20dp"
@@ -111,9 +112,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"/>
                 <TextView
+                    android:id="@+id/id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="seoseunghun3"
+                    android:text="..."
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:layout_marginTop="20dp"
@@ -136,9 +138,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"/>
                 <TextView
+                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="서승훈"
+                    android:text="..."
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:layout_marginTop="20dp"
@@ -162,9 +165,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"/>
                 <TextView
+                    android:id="@+id/birth_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="2007. 10. 16"
+                    tools:text="..."
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:layout_marginTop="20dp"
