@@ -12,6 +12,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
+                <ImageView
+                    android:id="@+id/title"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/logo_text_black" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:id="@+id/notification"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_notification"
+                    android:layout_gravity="center"/>
+                <ImageView
+                    android:id="@+id/menu"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_menu"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
             <TextView
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
@@ -21,7 +52,7 @@
                 android:textSize="24sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/pretendard_semibold"
-                android:layout_marginTop="50dp"/>
+                android:layout_marginTop="30dp"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
