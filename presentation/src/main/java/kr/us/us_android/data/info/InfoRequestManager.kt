@@ -1,11 +1,9 @@
 package kr.us.us_android.data.info
 
-import kr.us.us_android.data.auth.AuthRequestManager
 import kr.us.us_android.data.auth.response.DeleteUserResponse
 import kr.us.us_android.data.info.request.AddInfoRequest
 import kr.us.us_android.data.info.response.AddInfoResponse
 import kr.us.us_android.data.info.response.InfoListResponse
-import kr.us.us_android.data.routine.RoutineRequestManager
 import kr.us.us_android.data.user.AddFoodRequest
 import okhttp3.OkHttpClient
 import retrofit2.HttpException

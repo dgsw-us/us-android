@@ -1,11 +1,10 @@
 package kr.us.us_android.feature.routine
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kr.us.us_android.R
+import androidx.fragment.app.Fragment
 import kr.us.us_android.databinding.FragmentPickRoutineBinding
 
 class PickRoutineFragment : Fragment() {

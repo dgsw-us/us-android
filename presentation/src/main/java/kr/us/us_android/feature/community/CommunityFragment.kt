@@ -2,10 +2,10 @@ package kr.us.us_android.feature.community
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,13 +15,8 @@ import kr.us.us_android.R
 import kr.us.us_android.application.UsApplication
 import kr.us.us_android.data.community.BoardInformation
 import kr.us.us_android.data.community.BoardRequestManager
-import kr.us.us_android.data.info.InfoRequestManager
 import kr.us.us_android.databinding.FragmentCommunityBinding
-import kr.us.us_android.feature.home.AddInfoFragment
-import kr.us.us_android.feature.home.InformationAdapter
 import kr.us.us_android.util.shortToast
-import retrofit2.HttpException
-import java.net.SocketTimeoutException
 import kotlin.coroutines.cancellation.CancellationException
 
 class CommunityFragment : Fragment() {

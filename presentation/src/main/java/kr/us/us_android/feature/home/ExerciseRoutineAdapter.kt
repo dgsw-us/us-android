@@ -5,9 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kr.us.us_android.R  // 필요한 경우 프로젝트의 R 파일로 변경
-import kr.us.us_android.data.info.response.Information
-import kr.us.us_android.data.routine.DataItem
+import kr.us.us_android.R
 import kr.us.us_android.data.routine.Exercise
 
 class ExerciseRoutineAdapter(private val dataList: List<Exercise>) :

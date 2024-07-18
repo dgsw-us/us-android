@@ -1,9 +1,5 @@
 package kr.us.us_android.data.user
 
-import kr.us.us_android.data.auth.AuthRequestManager
-import kr.us.us_android.data.auth.request.LoginRequest
-import kr.us.us_android.data.auth.response.LoginResponse
-import kr.us.us_android.data.info.InfoService
 import okhttp3.OkHttpClient
 import retrofit2.HttpException
 import retrofit2.Response

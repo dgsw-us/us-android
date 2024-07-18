@@ -2,20 +2,17 @@ package kr.us.us_android.feature.ricerecommend
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import kr.us.us_android.R
 import kr.us.us_android.application.UsApplication
 import kr.us.us_android.common.Constant
 import kr.us.us_android.data.info.InfoRequestManager
-import kr.us.us_android.data.info.request.AddInfoRequest
 import kr.us.us_android.data.user.AddFoodRequest
 import kr.us.us_android.databinding.FragmentAddFoodBinding
-import kr.us.us_android.databinding.FragmentAddInfoBinding
 import kr.us.us_android.util.shortToast
 
 class AddFoodFragment : Fragment() {

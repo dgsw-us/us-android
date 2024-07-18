@@ -14,13 +14,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kr.us.us_android.application.PreferenceManager
 import kr.us.us_android.application.UsApplication
 import kr.us.us_android.application.UserPrefs
 import kr.us.us_android.databinding.ActivityMainBinding
 import kr.us.us_android.feature.auth.login.LoginFragment
-import kr.us.us_android.feature.community.CommunityFragment
 import kr.us.us_android.feature.calendar.CalendarFragment
+import kr.us.us_android.feature.community.CommunityFragment
 import kr.us.us_android.feature.home.HomeFragment
 import kr.us.us_android.feature.my.MyFragment
 import kr.us.us_android.feature.ricerecommend.RiceRecommendFragment

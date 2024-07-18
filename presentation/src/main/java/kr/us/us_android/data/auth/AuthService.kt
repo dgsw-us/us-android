@@ -7,11 +7,9 @@ import kr.us.us_android.data.auth.response.ChangePasswordResponse
 import kr.us.us_android.data.auth.response.DeleteUserResponse
 import kr.us.us_android.data.auth.response.JoinResponse
 import kr.us.us_android.data.auth.response.LoginResponse
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
-import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST

@@ -1,11 +1,6 @@
 package kr.us.us_android.data.community
 
-import kr.us.us_android.data.auth.AuthRequestManager
-import kr.us.us_android.data.auth.AuthService
-import kr.us.us_android.data.info.InfoRequestManager
-import kr.us.us_android.data.info.request.AddInfoRequest
 import kr.us.us_android.data.info.response.AddInfoResponse
-import kr.us.us_android.data.info.response.InfoListResponse
 import okhttp3.OkHttpClient
 import retrofit2.HttpException
 import retrofit2.Response

@@ -12,7 +12,6 @@ import kr.us.us_android.R
 import kr.us.us_android.application.UsApplication
 import kr.us.us_android.data.recommend.RiceRequestManager
 import kr.us.us_android.databinding.FragmentRiceRecommendBinding
-import kr.us.us_android.feature.home.AddInfoFragment
 import kr.us.us_android.util.shortToast
 import retrofit2.HttpException
 import java.net.SocketTimeoutException

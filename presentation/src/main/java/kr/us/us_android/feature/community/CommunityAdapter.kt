@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kr.us.us_android.R
 import kr.us.us_android.data.community.BoardInformation
-import kr.us.us_android.data.info.response.Information
 
 class CommunityAdapter(
     private val dataList: List<BoardInformation>,

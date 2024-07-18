@@ -5,8 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kr.us.us_android.R // 여기서 R은 프로젝트의 R 파일을 사용해야 합니다. 필요에 따라 수정하세요.
-import java.util.*
+import kr.us.us_android.R
 
 class EventAdapter(private val events: List<EventData>) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
 

@@ -21,13 +21,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kr.us.us_android.R
 import kr.us.us_android.application.UsApplication
-import kr.us.us_android.data.auth.AuthRequestManager
 import kr.us.us_android.data.info.InfoRequestManager
 import kr.us.us_android.data.info.response.Information
 import kr.us.us_android.data.routine.DataItem
-import kr.us.us_android.data.routine.DeleteRoutineRequest
 import kr.us.us_android.data.routine.RoutineRequestManager
-import kr.us.us_android.data.user.AddFoodRequest
 import kr.us.us_android.data.user.UserRequestManager
 import kr.us.us_android.databinding.FragmentHomeBinding
 import kr.us.us_android.feature.menu.MenuFragment

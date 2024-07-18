@@ -1,18 +1,14 @@
 package kr.us.us_android.feature.community
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import kr.us.us_android.R
 import kr.us.us_android.application.UsApplication
 import kr.us.us_android.data.community.BoardRequestManager
-import kr.us.us_android.data.routine.AddRoutineRequest
-import kr.us.us_android.data.user.UserRequestManager
-import kr.us.us_android.databinding.FragmentCommunityBinding
 import kr.us.us_android.databinding.FragmentCommunityDetailBinding
 
 class CommunityDetailFragment : Fragment() {
